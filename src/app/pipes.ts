@@ -27,6 +27,36 @@ export class StringBeautificationPipe implements PipeTransform {
 @Pipe({ name: 'filteringPipe' })
 export class FilteringPipe implements PipeTransform {
     transform(data: any, field: any, criteria: any): any {
+        if (data === undefined || data.length === 0) {
+            return data;
+        }
+        if (!field || !criteria) {
+            return data;
+        }
         return data.filter((x: any) => x[field].includes(criteria));
+    }
+}
+
+@Pipe({ name: 'sortingPipe' })
+export class SortingPipe implements PipeTransform {
+    transform(data: any, field: any, criteria: any): any {
+        if (data === undefined || data.length === 0) {
+            return data;
+        }
+        if (!field || !criteria) {
+            return data;
+        }
+        switch (typeof (data[0][field])) {
+            case 'string':
+                return data.sort((x: any, y: any) => x[field].localeCompare(y[field]));
+            case 'number':
+                return data.sort((x: any, y: any) => y[field] - x[field]);
+            case 'object':
+                // assuming it's a date
+                return data.sort((x: any, y: any) => { 
+                    return y[field].getTime() - x[field].getTime(); 
+                });
+        }
+        return data;
     }
 }

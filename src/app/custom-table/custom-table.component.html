@@ -6,7 +6,8 @@
     </thead>
     <tbody>
         <ng-template ngFor let-data [ngForOf]="dataSource 
-        | filteringPipe:field:criteria" let-idx="index">
+         | filteringPipe:filteringField:filteringCriteria
+         | sortingPipe:sortingField:sortingCriteria" let-idx="index">
             <tr>
                 <td *ngFor="let key of data | keysPipe">
                     {{ dataSource[idx][key] | stringBeautificationPipe:key }}

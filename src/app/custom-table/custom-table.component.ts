@@ -6,19 +6,20 @@ import { KeysPipe, StringBeautificationPipe, FilteringPipe } from "../pipes";
   templateUrl: './custom-table.component.html',
   styleUrls: ['./custom-table.component.scss']
 })
-export class CustomTableComponent implements AfterContentChecked {
+export class CustomTableComponent {
 
   @Input()
   public dataSource: any[] = [];
 
-  public field: any = 'authors';
+  public filteringField: any;
 
-  public criteria: any = 'John';
+  public filteringCriteria: any;
+
+  public sortingField: any = 'id';
+
+  // todo: criteria not being applied
+  public sortingCriteria: any = 'desc';
 
   constructor() { }
-
-  ngAfterContentChecked(): void {
-    debugger;
-  }
 
 }
