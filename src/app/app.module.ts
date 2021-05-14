@@ -7,13 +7,15 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ViewBooksComponent } from './view-books/view-books.component';
 import { EditBookComponent } from './edit-book/edit-book.component';
 import { ViewChangesComponent } from './view-changes/view-changes.component';
+import { CustomTableComponent } from './custom-table/custom-table.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ViewBooksComponent,
     EditBookComponent,
-    ViewChangesComponent
+    ViewChangesComponent,
+    CustomTableComponent
   ],
   imports: [
     BrowserModule,

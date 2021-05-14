@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BooksService } from '../services/books.service';
 
 @Component({
   selector: 'app-view-changes',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewChangesComponent implements OnInit {
 
-  constructor() { }
+  public data: any[] = [];
+
+  constructor(
+    private booksService: BooksService
+  ) { }
 
   ngOnInit(): void {
+    this.data = this.booksService.getChanges();
   }
 
 }
