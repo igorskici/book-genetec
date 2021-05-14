@@ -6,8 +6,9 @@
     </thead>
     <tbody>
         <tr *ngFor="let idx of dataSource | keysPipe">
-            <td *ngFor="let key of dataSource[idx] | keysPipe">
-                {{ dataSource[idx][key] }}
+            <td *ngFor="let key of dataSource[idx] 
+            | keysPipe">
+                {{ dataSource[idx][key] | stringBeautificationPipe:key }}
             </td>
         </tr>
     </tbody>

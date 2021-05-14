@@ -24,14 +24,14 @@ export class BooksService {
     },
     {
       id: 3,
-      authors: 'Will Svenson,Cristopher Davids',
+      authors: 'Will Svenson,Cristopher Davids,',
       title: 'Political knowledge for dummies',
       description: 'A book that is intended to teach newcomers to politial sciences.',
       publishDate: new Date("Sat Feb 5 2010 00:33:13 GMT+0300"),
     },
     {
       id: 4,
-      authors: 'Harrison Smith,Connard Legrand',
+      authors: 'Harrison Smith,Connard Legrand,',
       title: 'Trip to Goa',
       description: 'A travelogue for our joint trip to Goa',
       publishDate: new Date("Sat Sep 15 2012 00:33:13 GMT+0300"),

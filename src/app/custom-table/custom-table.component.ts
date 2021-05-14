@@ -1,5 +1,5 @@
 import { AfterContentChecked, Component, Input, OnInit } from '@angular/core';
-import { KeysPipe } from "../pipes";
+import { KeysPipe, StringBeautificationPipe } from "../pipes";
 
 @Component({
   selector: 'custom-table',
