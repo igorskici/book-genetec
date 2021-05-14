@@ -8,6 +8,7 @@ import { ViewBooksComponent } from './view-books/view-books.component';
 import { EditBookComponent } from './edit-book/edit-book.component';
 import { ViewChangesComponent } from './view-changes/view-changes.component';
 import { CustomTableComponent } from './custom-table/custom-table.component';
+import { KeysPipe } from './pipes';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { CustomTableComponent } from './custom-table/custom-table.component';
     ViewBooksComponent,
     EditBookComponent,
     ViewChangesComponent,
-    CustomTableComponent
+    CustomTableComponent,
+    KeysPipe
   ],
   imports: [
     BrowserModule,

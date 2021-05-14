@@ -1,8 +1,14 @@
 <table>
     <thead>
-        <th></th>
+        <th *ngFor="let val of dataSource[0] | keysPipe">
+            {{ val }}
+        </th>
     </thead>
     <tbody>
-        <tr></tr>
+        <tr *ngFor="let idx of dataSource | keysPipe">
+            <td *ngFor="let key of dataSource[idx] | keysPipe">
+                {{ dataSource[idx][key] }}
+            </td>
+        </tr>
     </tbody>
 </table>

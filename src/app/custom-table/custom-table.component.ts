@@ -1,18 +1,20 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterContentChecked, Component, Input, OnInit } from '@angular/core';
+import { KeysPipe } from "../pipes";
 
 @Component({
-  selector: 'app-custom-table',
+  selector: 'custom-table',
   templateUrl: './custom-table.component.html',
   styleUrls: ['./custom-table.component.scss']
 })
-export class CustomTableComponent implements OnInit {
+export class CustomTableComponent implements AfterContentChecked {
 
   @Input()
-  public dataSource: {} = {};
+  public dataSource: any[] = [];
 
   constructor() { }
 
-  ngOnInit(): void {
+  ngAfterContentChecked(): void {
+    debugger;
   }
 
 }
