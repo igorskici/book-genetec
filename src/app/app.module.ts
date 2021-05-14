@@ -3,14 +3,22 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ViewBooksComponent } from './view-books/view-books.component';
+import { EditBookComponent } from './edit-book/edit-book.component';
+import { ViewChangesComponent } from './view-changes/view-changes.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ViewBooksComponent,
+    EditBookComponent,
+    ViewChangesComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NoopAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
