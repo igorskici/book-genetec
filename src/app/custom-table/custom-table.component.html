@@ -5,11 +5,14 @@
         </th>
     </thead>
     <tbody>
-        <tr *ngFor="let idx of dataSource | keysPipe">
-            <td *ngFor="let key of dataSource[idx] 
-            | keysPipe">
-                {{ dataSource[idx][key] | stringBeautificationPipe:key }}
-            </td>
-        </tr>
+        <ng-template ngFor let-data [ngForOf]="dataSource 
+        | filteringPipe:field:criteria" let-idx="index">
+            <tr>
+                <td *ngFor="let key of data | keysPipe">
+                    {{ dataSource[idx][key] | stringBeautificationPipe:key }}
+
+                </td>
+            </tr>
+        </ng-template>
     </tbody>
 </table>

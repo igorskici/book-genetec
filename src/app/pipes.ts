@@ -23,3 +23,10 @@ export class StringBeautificationPipe implements PipeTransform {
     }
 
 }
+
+@Pipe({ name: 'filteringPipe' })
+export class FilteringPipe implements PipeTransform {
+    transform(data: any, field: any, criteria: any): any {
+        return data.filter((x: any) => x[field].includes(criteria));
+    }
+}

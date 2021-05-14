@@ -8,7 +8,7 @@ import { ViewBooksComponent } from './view-books/view-books.component';
 import { EditBookComponent } from './edit-book/edit-book.component';
 import { ViewChangesComponent } from './view-changes/view-changes.component';
 import { CustomTableComponent } from './custom-table/custom-table.component';
-import { KeysPipe, StringBeautificationPipe } from './pipes';
+import { FilteringPipe, KeysPipe, StringBeautificationPipe } from './pipes';
 
 @NgModule({
   declarations: [
@@ -18,7 +18,8 @@ import { KeysPipe, StringBeautificationPipe } from './pipes';
     ViewChangesComponent,
     CustomTableComponent,
     KeysPipe,
-    StringBeautificationPipe
+    StringBeautificationPipe,
+    FilteringPipe
   ],
   imports: [
     BrowserModule,
