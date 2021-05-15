@@ -1,3 +1,8 @@
 <h3>All changes applied to the books:</h3>
-<custom-table [dataSource]="data">
+<mat-slide-toggle class="toggler" [(ngModel)]="filtering">Enable filtering</mat-slide-toggle>
+<mat-slide-toggle class="toggler" [(ngModel)]="paging">Enable paging</mat-slide-toggle>
+<mat-slide-toggle class="toggler" [(ngModel)]="grouping">Enable grouping</mat-slide-toggle>
+<mat-slide-toggle class="toggler" [(ngModel)]="sorting">Enable sorting</mat-slide-toggle>
+<br>
+<custom-table [paging]="paging" [grouping]="grouping" [dataSource]="data">
 </custom-table>

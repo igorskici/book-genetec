@@ -9,6 +9,10 @@ import { BooksService } from '../services/books.service';
 export class ViewChangesComponent implements OnInit {
 
   public data: any[] = [];
+  public filtering = true;
+  public paging = true;
+  public grouping = true;
+  public sorting = true;
 
   constructor(
     private booksService: BooksService
