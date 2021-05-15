@@ -4,5 +4,23 @@
 <mat-slide-toggle class="toggler" [(ngModel)]="grouping">Enable grouping</mat-slide-toggle>
 <mat-slide-toggle class="toggler" [(ngModel)]="sorting">Enable sorting</mat-slide-toggle>
 <br>
-<custom-table [paging]="paging" [grouping]="grouping" [dataSource]="data">
+<div class="data-ops">
+    <div class="filtering-ops" *ngIf="filtering">
+        <mat-form-field style="margin-right: 10px;">
+            <mat-label>Filter Criteria</mat-label>
+            <input matInput [(ngModel)]="filterCriteria">
+        </mat-form-field>
+        <mat-form-field style="margin-right: 10px;">
+            <mat-label>Filter Field</mat-label>
+            <mat-select [(ngModel)]="filteringField" style="width: 150px;">
+                <mat-option *ngFor="let col of columns" [value]="col">
+                    {{ col }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <button mat-button color="secondary" (click)="filter()">Filter</button>
+    </div>
+</div>
+
+<custom-table #table [paging]="paging" [grouping]="grouping" [dataSource]="data">
 </custom-table>

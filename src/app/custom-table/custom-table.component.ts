@@ -17,7 +17,7 @@ export class CustomTableComponent implements OnInit, AfterViewInit {
   public get dataSource(): any[] {
     return this._dataSource;
   }
-  
+
   public set dataSource(data: any[]) {
     this._dataSource = data || [];
     this.cdr.markForCheck();
@@ -42,9 +42,9 @@ export class CustomTableComponent implements OnInit, AfterViewInit {
 
   public pages: number[] = [];
 
-  public filteringField: any;
+  private _filteringField: any;
 
-  public filteringCriteria: any;
+  private _filteringCriteria: any;
 
   public sortingField: any = 'id';
 
@@ -101,6 +101,22 @@ export class CustomTableComponent implements OnInit, AfterViewInit {
       width: '300px',
       data: { recordId, action: 'delete' }
     });
+  }
+
+  public get filteringField() {
+    return this._filteringField;
+  }
+
+  public set filteringField(value: any) {
+    this._filteringField = value;
+  }
+
+  public get filteringCriteria() {
+    return this._filteringCriteria;
+  }
+
+  public set filteringCriteria(value: any) {
+    this._filteringCriteria = value;
   }
 
 }

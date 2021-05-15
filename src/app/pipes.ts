@@ -38,7 +38,7 @@ export class FilteringPipe implements PipeTransform {
         if (!field || !criteria) {
             return data;
         }
-        return data.filter((x: any) => x[field].includes(criteria));
+        return data.filter((x: any) => ('' + x[field]).includes(criteria));
     }
 }
 
