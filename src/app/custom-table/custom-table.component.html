@@ -1,6 +1,5 @@
 <table #table>
-    <ng-content
-        *ngTemplateOutlet="dataSource.length > 0 ? tableBody : noRecords; context: { dataSource: dataSource }">
+    <ng-content *ngTemplateOutlet="dataSource.length > 0 ? tableBody : noRecords; context: { dataSource: dataSource }">
     </ng-content>
 </table>
 <ng-container *ngIf="paging">
@@ -17,6 +16,14 @@
         <td *ngFor="let key of context.data | keysPipe">
             {{ context.data[key] | stringBeautificationPipe:key }}
         </td>
+        <td *ngIf="editing">
+            <button mat-icon-button (click)="edit(context.data.id)">
+                <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="delete(context.data.id)">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </td>
     </tr>
 </ng-template>
 <ng-template #groupRow let-serviceData let-context>
@@ -30,6 +37,9 @@
     <thead>
         <th *ngFor="let val of dataSource[0] | keysPipe">
             {{ val }}
+        </th>
+        <th *ngIf="editing">
+            Actions
         </th>
     </thead>
     <tbody>
@@ -50,3 +60,15 @@
         <td>No data.</td>
     </tr>
 </ng-template>
+<!-- <div #matDialog>
+    <div mat-dialog-content>
+        <p>What's your favorite animal?</p>
+        <mat-form-field>
+            <mat-label>Favorite Animal</mat-label>
+        </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button>No Thanks</button>
+        <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button>
+    </div>
+</div> -->

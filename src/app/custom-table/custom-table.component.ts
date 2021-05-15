@@ -1,4 +1,5 @@
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'custom-table',
@@ -16,10 +17,13 @@ export class CustomTableComponent implements AfterViewInit {
   @Input()
   public grouping: boolean = false;
 
+  @Input()
+  public editing: boolean = false;
+
   @ViewChild('table')
   public table: ElementRef;
 
-  @ViewChild('paginator]')
+  @ViewChild('paginator')
   public paginator: ElementRef;
 
   public pages: number[] = [];
@@ -54,10 +58,18 @@ export class CustomTableComponent implements AfterViewInit {
   public get selectedPage() {
     return this._selectedPage;
   }
-  
+
   public set selectedPage(val) {
     this._selectedPage = val;
     this.pipeTrigger++;
+  }
+
+  public edit(recordId: number) {
+    debugger;
+  }
+
+  public delete(recordId: number) {
+
   }
 
 }

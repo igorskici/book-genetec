@@ -10,7 +10,11 @@ import { ViewChangesComponent } from './view-changes/view-changes.component';
 import { CustomTableComponent } from './custom-table/custom-table.component';
 import { FilteringPipe, GroupingPipe, KeysPipe, PagingPipe, SortingPipe, StringBeautificationPipe, TransformDataPipe } from './pipes';
 import { FormsModule } from '@angular/forms';
-import {MatToolbarModule} from '@angular/material/toolbar';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DialogComponent } from './dialog/dialog.component';
 
 @NgModule({
   declarations: [
@@ -25,14 +29,18 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     SortingPipe,
     PagingPipe,
     GroupingPipe,
-    TransformDataPipe
+    TransformDataPipe,
+    DialogComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NoopAnimationsModule,
     FormsModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatIconModule,
+    MatButtonModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
