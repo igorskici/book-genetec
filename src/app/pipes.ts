@@ -44,23 +44,21 @@ export class FilteringPipe implements PipeTransform {
 
 @Pipe({ name: 'sortingPipe' })
 export class SortingPipe implements PipeTransform {
-    transform(data: any, field: any, criteria: any, pipeTrigger: number): any {
+    transform(data: any, field: any, direction: any, pipeTrigger: number): any {
         if (data === undefined || data.length === 0) {
             return data;
         }
-        if (!field || !criteria) {
+        if (!field || !direction) {
             return data;
         }
         switch (typeof (data[0][field])) {
             case 'string':
-                return data.sort((x: any, y: any) => x[field].localeCompare(y[field]));
+                return data.sort((x: any, y: any) => direction === 'desc' ? y[field].localeCompare(x[field]) : x[field].localeCompare(y[field]));
             case 'number':
-                return data.sort((x: any, y: any) => y[field] - x[field]);
+                return data.sort((x: any, y: any) => direction === 'desc' ? y[field] - x[field] : x[field] - y[field]);
             case 'object':
                 // assuming it's a date
-                return data.sort((x: any, y: any) => {
-                    return y[field].getTime() - x[field].getTime();
-                });
+                return data.sort((x: any, y: any) => direction === 'desc' ? y[field].getTime() - x[field].getTime() : x[field].getTime() - y[field].getTime());
         }
         return data;
     }

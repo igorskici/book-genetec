@@ -11,13 +11,18 @@ import { TableService } from '../services/table.service';
 })
 export class CustomTableComponent implements OnInit, AfterViewInit {
 
+  @ViewChild('table')
+  public table: ElementRef;
+
+  @ViewChild('paginator')
+  public paginator: ElementRef;
+
   private _dataSource: any[] = [];
 
   @Input()
   public get dataSource(): any[] {
     return this._dataSource;
   }
-
   public set dataSource(data: any[]) {
     this._dataSource = data || [];
     this.cdr.markForCheck();
@@ -29,24 +34,8 @@ export class CustomTableComponent implements OnInit, AfterViewInit {
   @Input()
   public editing: boolean = false;
 
-  @ViewChild('table')
-  public table: ElementRef;
-
-  @ViewChild('paginator')
-  public paginator: ElementRef;
-
-  public tableService: TableService;
-
-  public pages: number[] = [];
-
-  private _perPage: number = 5;
-
-  private _filteringField: any;
-
-  private _filteringCriteria: any;
-
   private _paging: boolean = false;
-  
+
   @Input()
   public get paging(): boolean {
     return this._paging;
@@ -59,16 +48,26 @@ export class CustomTableComponent implements OnInit, AfterViewInit {
     }
   }
 
-  public sortingField: any = 'id';
+  public tableService: TableService;
+
+  public pages: number[] = [];
+
+  private _sortingField: any;
 
   // todo: criteria not being applied
-  public sortingCriteria: any = 'desc';
+  private _sortingCriteria: any;
 
-  public groupingField: any = 'actions';
+  public groupingField: any;
 
-  public groupingCriteria: any = 'edit';
+  public groupingCriteria: any;
 
   public pipeTrigger = 0;
+
+  private _perPage: number = 5;
+
+  private _filteringField: any;
+
+  private _filteringCriteria: any;
 
   private _selectedPage: number = 1;
 
@@ -138,6 +137,20 @@ export class CustomTableComponent implements OnInit, AfterViewInit {
 
   public set perPage(value: any) {
     this._perPage = value;
+  }
+
+  public get sortingField(): any {
+    return this._sortingField;
+  }
+  public set sortingField(value: any) {
+    this._sortingField = value;
+  }
+
+  public get sortingCriteria(): any {
+    return this._sortingCriteria;
+  }
+  public set sortingCriteria(value: any) {
+    this._sortingCriteria = value;
   }
 
 }

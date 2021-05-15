@@ -19,7 +19,8 @@ export class ViewChangesComponent implements OnInit {
   public filteringField: any;
   public groupingCriteria: string;
   public groupingField: any;
-
+  public sortingField: any;
+  public sortingDir: any;
 
   @ViewChild('table', { read: CustomTableComponent })
   public table: CustomTableComponent;
@@ -43,6 +44,13 @@ export class ViewChangesComponent implements OnInit {
     this.table.groupingCriteria = this.groupingCriteria;
     this.table.groupingField = this.groupingField;
     this.table.cdr.detectChanges();
+  }
+
+  public sort() {
+    this.table.sortingField = this.sortingField;
+    this.table.sortingCriteria = this.sortingDir;
+    this.table.cdr.detectChanges();
+    this.table.pipeTrigger++;
   }
 
 }
