@@ -8,7 +8,7 @@
         <ng-template ngFor let-data [ngForOf]="dataSource 
          | filteringPipe:filteringField:filteringCriteria
          | sortingPipe:sortingField:sortingCriteria
-         | pagingPipe:selectedPage:2:pipeTrigger" let-idx="index">
+         | pagingPipe:paging:selectedPage:2:pipeTrigger" let-idx="index">
          <tr>
              <td *ngFor="let key of data | keysPipe">
                     {{ data[key] | stringBeautificationPipe:key }}

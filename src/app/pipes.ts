@@ -66,8 +66,8 @@ export class PagingPipe implements PipeTransform {
     // constructor(tableService: TableService) {
         // Todo: determine page size here and pass it back to component
     // }
-    transform(data: any, selectedPage: any, perPage = 2, pipeTrigger: number): any {
-        if (data === undefined || data.length === 0) {
+    transform(data: any, paging: boolean, selectedPage: any, perPage = 2, pipeTrigger: number): any {
+        if (!paging || data === undefined || data.length === 0) {
             return data;
         }
         
