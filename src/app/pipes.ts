@@ -17,6 +17,9 @@ export class StringBeautificationPipe implements PipeTransform {
                 authors.pop(authors.length);
                 return authors.length === 1 ? authors[0] : authors.join(', ');
             case 'publishDate':
+                if (typeof(value) === 'string') {
+                    value = new Date(value);
+                }
                 return value.getMonth() + '/' + value.getDay() + '/' + value.getFullYear();
         }
         return value;
