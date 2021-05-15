@@ -16,6 +16,7 @@ export class StringBeautificationPipe implements PipeTransform {
                 const authors = value.split(',');
                 authors.pop(authors.length);
                 return authors.length === 1 ? authors[0] : authors.join(', ');
+            case 'timestamp':
             case 'publishDate':
                 if (typeof(value) === 'string') {
                     value = new Date(value);

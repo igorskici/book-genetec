@@ -1,13 +1,14 @@
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'custom-table',
   templateUrl: './custom-table.component.html',
   styleUrls: ['./custom-table.component.scss']
 })
-export class CustomTableComponent implements AfterViewInit {
+export class CustomTableComponent implements OnInit, AfterViewInit {
 
   @Input()
   public dataSource: any[] = [];
@@ -47,8 +48,15 @@ export class CustomTableComponent implements AfterViewInit {
   private _selectedPage: number = 1;
 
   constructor(
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public cdr: ChangeDetectorRef
   ) { }
+
+  ngOnInit() {
+    this.dialog?.afterAllClosed.subscribe(() => {
+      this.cdr.detectChanges();
+    });
+  }
 
   ngAfterViewInit() {
     if (this.paging) {

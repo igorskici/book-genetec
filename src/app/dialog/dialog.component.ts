@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { BooksService } from '../services/books.service';
@@ -20,7 +20,8 @@ export class DialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<DialogComponent>,
     public booksService: BooksService,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
@@ -41,8 +42,12 @@ export class DialogComponent implements OnInit {
 
   onConfirm(e: any): void {
     e.preventDefault();
+    const dirtyValues: any[] = [];
 
     if (e.submitter === undefined) {
+      dirtyValues.push({ recordId: this.data.recordId, event: this.data.action });
+      this.booksService.alter(this.data.recordId, dirtyValues);
+      this.cdr.detectChanges();
       this.dialogRef.close();
       return;
     }
@@ -53,16 +58,21 @@ export class DialogComponent implements OnInit {
     }
 
     if (!this.record.untouched) {
-      const dirtyValues: any[] = [];
 
       Object.keys(this.record.controls).forEach(x => {
         if (this.record.controls[x].dirty) {
-          dirtyValues.push({ recordId: this.data.recordId, field: x, newVal: this.record.controls[x].value });
+          dirtyValues.push({ 
+            recordId: this.data.recordId, 
+            field: x, 
+            newVal: this.record.controls[x].value, 
+            event: this.data.action 
+          });
         }
       });
       this.booksService.alter(this.data.recordId, dirtyValues);
     }
 
+    this.cdr.detectChanges();
     this.dialogRef.close();
   }
 

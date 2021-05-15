@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { ChangeDetectorRef, Injectable } from '@angular/core';
 
 const BOOKS_DATA = 'booksData';
 const CHANGES_DATA = 'booksDataChangeLog';
@@ -90,15 +90,27 @@ export class BooksService {
     }
     changes.forEach((change: any) => {
       const oldValue = this._booksData.filter(x => x.id === recordId)[0][change.field];
+      const strictChange = {
+        id: change.recordId,
+        field: change.field || 'Not specified',
+        newVal: change.newVal || 'Not specified',
+        event: change.event,
+        oldVal: oldValue || 'Not specified',
+        timestamp: new Date()
+      };
       this.editBooks(change);
-      newChanges.push({...change, oldVal: oldValue});
+      newChanges.push(strictChange);
     });
     this.editChanges(newChanges);
   }
 
   private editBooks(change: any) {
     let data = this.getBooksData();
-    data = data.map(x => x.id === change.recordId ? {...x, [change.field]: change.newVal} : x);
+    if (change.event === "edit") {
+      data = data.map(x => x.id === change.recordId ? {...x, [change.field]: change.newVal} : x);
+    } else {
+      data = data.filter(x => x.id !== change.recordId);
+    }
     sessionStorage[BOOKS_DATA] = JSON.stringify(data);
   }
 
