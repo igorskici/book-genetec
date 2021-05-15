@@ -1,5 +1,6 @@
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, ViewChild } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
   selector: 'custom-table',
@@ -45,7 +46,9 @@ export class CustomTableComponent implements AfterViewInit {
 
   private _selectedPage: number = 1;
 
-  constructor() { }
+  constructor(
+    public dialog: MatDialog
+  ) { }
 
   ngAfterViewInit() {
     if (this.paging) {
@@ -65,11 +68,17 @@ export class CustomTableComponent implements AfterViewInit {
   }
 
   public edit(recordId: number) {
-    debugger;
+    this.dialog.open(DialogComponent, {
+      width: '300px',
+      data: { recordId, action: 'edit' }
+    });
   }
 
   public delete(recordId: number) {
-
+    this.dialog.open(DialogComponent, {
+      width: '300px',
+      data: { recordId, action: 'delete' }
+    });
   }
 
 }
