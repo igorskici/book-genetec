@@ -60,3 +60,17 @@ export class SortingPipe implements PipeTransform {
         return data;
     }
 }
+
+@Pipe({ name: 'pagingPipe', pure: false })
+export class PagingPipe implements PipeTransform {
+    // constructor(tableService: TableService) {
+        // Todo: determine page size here and pass it back to component
+    // }
+    transform(data: any, selectedPage: any, perPage = 2, pipeTrigger: number): any {
+        if (data === undefined || data.length === 0) {
+            return data;
+        }
+        
+        return data.slice(selectedPage * perPage - perPage, selectedPage * perPage);
+    }
+}

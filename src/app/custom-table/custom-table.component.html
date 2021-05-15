@@ -1,4 +1,4 @@
-<table>
+<table #table>
     <thead>
         <th *ngFor="let val of dataSource[0] | keysPipe">
             {{ val }}
@@ -7,13 +7,22 @@
     <tbody>
         <ng-template ngFor let-data [ngForOf]="dataSource 
          | filteringPipe:filteringField:filteringCriteria
-         | sortingPipe:sortingField:sortingCriteria" let-idx="index">
-            <tr>
-                <td *ngFor="let key of data | keysPipe">
-                    {{ dataSource[idx][key] | stringBeautificationPipe:key }}
-
+         | sortingPipe:sortingField:sortingCriteria
+         | pagingPipe:selectedPage:2:pipeTrigger" let-idx="index">
+         <tr>
+             <td *ngFor="let key of data | keysPipe">
+                    {{ data[key] | stringBeautificationPipe:key }}
                 </td>
             </tr>
         </ng-template>
     </tbody>
 </table>
+<ng-container *ngIf="paging">
+    <div #paginator class="paginator">
+        <span>Paging is statically set to 2 elements per page. </span>
+        <label for="paginator">Go to page </label>
+        <select id="paginator" style="margin-left: 10px" [(ngModel)]="selectedPage">
+            <option *ngFor="let val of pages" [ngValue]="val">{{ val }}</option>
+        </select>
+    </div>
+</ng-container>

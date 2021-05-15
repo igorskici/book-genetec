@@ -8,7 +8,8 @@ import { ViewBooksComponent } from './view-books/view-books.component';
 import { EditBookComponent } from './edit-book/edit-book.component';
 import { ViewChangesComponent } from './view-changes/view-changes.component';
 import { CustomTableComponent } from './custom-table/custom-table.component';
-import { FilteringPipe, KeysPipe, SortingPipe, StringBeautificationPipe } from './pipes';
+import { FilteringPipe, KeysPipe, PagingPipe, SortingPipe, StringBeautificationPipe } from './pipes';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,12 +21,14 @@ import { FilteringPipe, KeysPipe, SortingPipe, StringBeautificationPipe } from '
     KeysPipe,
     StringBeautificationPipe,
     FilteringPipe,
-    SortingPipe
+    SortingPipe,
+    PagingPipe
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NoopAnimationsModule
+    NoopAnimationsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

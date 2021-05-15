@@ -1,15 +1,25 @@
-import { AfterContentChecked, Component, Input, OnInit } from '@angular/core';
-import { KeysPipe, StringBeautificationPipe, FilteringPipe } from "../pipes";
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'custom-table',
   templateUrl: './custom-table.component.html',
   styleUrls: ['./custom-table.component.scss']
 })
-export class CustomTableComponent {
+export class CustomTableComponent implements AfterViewInit {
 
   @Input()
   public dataSource: any[] = [];
+
+  @Input()
+  public paging: boolean = false;
+
+  @ViewChild('table')
+  public table: ElementRef;
+
+  @ViewChild('table')
+  public paginator: ElementRef;
+
+  public pages: number[] = [];
 
   public filteringField: any;
 
@@ -20,6 +30,27 @@ export class CustomTableComponent {
   // todo: criteria not being applied
   public sortingCriteria: any = 'desc';
 
+  public pipeTrigger = 0;
+
+  private _selectedPage: number = 1;
+
   constructor() { }
+
+  ngAfterViewInit() {
+    if (this.paging) {
+      for (var i = 1; i <= Math.round(this.dataSource.length / 2); i++) {
+        this.pages.push(i);
+      }
+    }
+  }
+
+  public get selectedPage() {
+    return this._selectedPage;
+  }
+  
+  public set selectedPage(val) {
+    this._selectedPage = val;
+    this.pipeTrigger++;
+  }
 
 }
