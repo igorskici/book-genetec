@@ -1,12 +1,8 @@
 <div mat-dialog-content>
     <ng-content *ngTemplateOutlet="data.action === 'edit' ? editBody : deleteBody"></ng-content>
 </div>
-<div mat-dialog-actions>
-    <button mat-button (click)="onNoClick()">Cancel</button>
-    <button mat-button (click)="onConfirm()" cdkFocusInitial>Confirm</button>
-</div>
 <ng-template #editBody>
-    <form [formGroup]="record" (ngSubmit)="onConfirm()">
+    <form [formGroup]="record" id="recordForm" (ngSubmit)="onConfirm($event)">
         <mat-form-field appearance="outline">
             <mat-label>Authors</mat-label>
             <input matInput formControlName="authors">
@@ -24,7 +20,17 @@
             <input matInput type="date" formControlName="publishDate">
         </mat-form-field>
     </form>
+
+    <div mat-dialog-actions>
+        <button mat-button (click)="onNoClick()">Cancel</button>
+        <button mat-button type="submit" form="recordForm" cdkFocusInitial>Confirm</button>
+    </div>
 </ng-template>
 <ng-template #deleteBody>
     <h3>You are about to delete the record with id {{ data.recordId }}.</h3>
+
+    <div mat-dialog-actions>
+        <button mat-button (click)="onNoClick()">Cancel</button>
+        <button mat-button (click)="onConfirm($event)" cdkFocusInitial>Confirm</button>
+    </div>
 </ng-template>

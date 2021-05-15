@@ -27,9 +27,9 @@ export class DialogComponent implements OnInit {
     if (this.data.action === 'edit') {
       this.recordData = this.booksService.getBookEntity(Math.round(this.data.recordId))[0];
       this.record.setValue({
-        authors: this.recordData.authors, 
-        title: this.recordData.title, 
-        description: this.recordData.description, 
+        authors: this.recordData.authors,
+        title: this.recordData.title,
+        description: this.recordData.description,
         publishDate: new Date(this.recordData.publishDate).toISOString().substring(0, 10)
       });
     }
@@ -39,8 +39,28 @@ export class DialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  onConfirm(): void {
-    this.dialogRef.close();
+  onConfirm(e: any): void {
+    e.preventDefault();
+
+    const dirtyValues = [];
+
+    if (e.submitter === undefined) {
+      this.dialogRef.close();
+      return;
+    }
+
+    if (this.record.invalid) {
+
+      return;
+    }
+
+    if (!this.record.untouched) {
+      Object.keys(this.record.controls).forEach(x => {
+        if (this.record.controls[x].dirty) {
+          dirtyValues.push({ recordId: this.data.recordId, field: x, newVal: this.record.controls[x].value });
+        }
+      });
+    }
   }
 
 }
