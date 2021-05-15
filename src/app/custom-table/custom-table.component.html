@@ -1,21 +1,7 @@
 <table #table>
-    <thead>
-        <th *ngFor="let val of dataSource[0] | keysPipe">
-            {{ val }}
-        </th>
-    </thead>
-    <tbody>
-        <ng-template ngFor let-data [ngForOf]="dataSource 
-         | filteringPipe:filteringField:filteringCriteria
-         | sortingPipe:sortingField:sortingCriteria
-         | transformDataPipe:pipeTrigger
-         | groupingPipe:grouping:groupingField:groupingCriteria:pipeTrigger
-         | pagingPipe:paging:selectedPage:2:pipeTrigger" let-idx="index">
-            <ng-content
-                *ngTemplateOutlet="data.type === 'dataRow' ? dataRow : groupRow; context: { $implicit: { serviceData: data, data: data.data }}">
-            </ng-content>
-        </ng-template>
-    </tbody>
+    <ng-content
+        *ngTemplateOutlet="dataSource.length > 0 ? tableBody : noRecords; context: { dataSource: dataSource }">
+    </ng-content>
 </table>
 <ng-container *ngIf="paging">
     <div #paginator class="paginator">
@@ -38,5 +24,29 @@
         <td colspan="5" class="group-row">
             {{ serviceData.serviceData.field}}: {{ serviceData.serviceData.data }}
         </td>
+    </tr>
+</ng-template>
+<ng-template #tableBody let-context let-dataSource="dataSource">
+    <thead>
+        <th *ngFor="let val of dataSource[0] | keysPipe">
+            {{ val }}
+        </th>
+    </thead>
+    <tbody>
+        <ng-template ngFor let-data [ngForOf]="dataSource 
+         | filteringPipe:filteringField:filteringCriteria
+         | sortingPipe:sortingField:sortingCriteria
+         | transformDataPipe:pipeTrigger
+         | groupingPipe:grouping:groupingField:groupingCriteria:pipeTrigger
+         | pagingPipe:paging:selectedPage:2:pipeTrigger" let-idx="index">
+            <ng-content
+                *ngTemplateOutlet="data.type === 'dataRow' ? dataRow : groupRow; context: { $implicit: { serviceData: data, data: data.data }}">
+            </ng-content>
+        </ng-template>
+    </tbody>
+</ng-template>
+<ng-template #noRecords>
+    <tr>
+        <td>No data.</td>
     </tr>
 </ng-template>
