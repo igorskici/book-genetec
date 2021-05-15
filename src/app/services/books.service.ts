@@ -39,10 +39,21 @@ const SAMPLE_DATA = [{
   publishDate: new Date("Sat Dec 25 2012 00:33:13 GMT+0300"),
 }];
 
+export interface BookEntity {
+  id: number,
+  authors: string,
+  title: string,
+  description: string,
+  publishDate: string
+};
+
 @Injectable({
   providedIn: 'root'
 })
 export class BooksService {
+
+  private _booksData: any[] = [];
+  private _changesData: [] = [];
 
   constructor() {
     if (!sessionStorage.getItem(BOOKS_DATA) || sessionStorage.getItem(BOOKS_DATA)?.length === 0) {
@@ -51,8 +62,16 @@ export class BooksService {
   }
 
   public getBooksData(): any[] {
-    const data = sessionStorage.getItem(BOOKS_DATA);
-    return !!data ? JSON.parse(data) : [];
+    const sessionStorageData = sessionStorage.getItem(BOOKS_DATA);
+    this._booksData = !!sessionStorageData ? JSON.parse(sessionStorageData) : [];
+    return this._booksData;
+  }
+
+  public getBookEntity(id: number) {
+    if (this._booksData.length === 0) {
+      this._booksData = this.getBooksData();
+    }
+    return this._booksData.filter((x: BookEntity) => x.id === id);
   }
 
   public getChanges(): any[] {
