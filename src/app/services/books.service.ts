@@ -39,6 +39,8 @@ const SAMPLE_DATA = [{
   publishDate: new Date("Sat Dec 25 2012 00:33:13 GMT+0300"),
 }];
 
+const SAMPLE_CHANGES = [{ "id": 4, "field": "title", "newVal": "Trip to India", "event": "edit", "oldVal": "Trip to Goa", "timestamp": "2021-05-15T16:29:50.216Z" }, { "id": 4, "field": "description", "newVal": "A travelogue for our joint trip to India", "event": "edit", "oldVal": "A travelogue for our joint trip to Goa", "timestamp": "2021-05-15T16:30:06.467Z" }, { "id": 1, "field": "title", "newVal": "Adventures of John Pt.1", "event": "edit", "oldVal": "Adventures of John", "timestamp": "2021-05-15T16:30:14.640Z" }, { "id": 1, "field": "Not specified", "newVal": "Not specified", "event": "delete", "oldVal": "Not specified", "timestamp": "2021-05-15T16:30:19.579Z" }, { "id": 5, "field": "description", "newVal": "Advanced sociology book", "event": "edit", "oldVal": "Advanced maths book", "timestamp": "2021-05-15T16:30:28.004Z" }, { "id": 5, "field": "title", "newVal": "Sociology 102", "event": "edit", "oldVal": "Math 102", "timestamp": "2021-05-15T16:30:34.532Z" }, { "id": 5, "field": "title", "newVal": "Sociology 103", "event": "edit", "oldVal": "Sociology 102", "timestamp": "2021-05-15T16:31:00.739Z" }, { "id": 5, "field": "publishDate", "newVal": "2012-12-25", "event": "edit", "oldVal": "2012-12-24T21:33:13.000Z", "timestamp": "2021-05-15T16:31:13.508Z" }, { "id": 3, "field": "authors", "newVal": "Mecho Puh,Cristopher Davids,", "event": "edit", "oldVal": "Will Svenson,Cristopher Davids,", "timestamp": "2021-05-15T16:31:24.772Z" }, { "id": 2, "field": "description", "newVal": "The adventures of John part I", "event": "edit", "oldVal": "The adventures of John part II", "timestamp": "2021-05-15T16:34:15.460Z" }, { "id": 4, "field": "title", "newVal": "Trip to Goa", "event": "edit", "oldVal": "Trip to India", "timestamp": "2021-05-15T16:35:45.064Z" }, { "id": 4, "field": "title", "newVal": "Trip to Goa", "event": "edit", "oldVal": "Trip to India", "timestamp": "2021-05-15T16:35:52.815Z" }, { "id": 3, "field": "authors", "newVal": "Cristopher Davids,", "event": "edit", "oldVal": "Mecho Puh,Cristopher Davids,", "timestamp": "2021-05-15T16:38:47.544Z" }];
+
 export interface BookEntity {
   id: number,
   authors: string,
@@ -58,6 +60,10 @@ export class BooksService {
   constructor() {
     if (!sessionStorage.getItem(BOOKS_DATA) || sessionStorage.getItem(BOOKS_DATA)?.length === 0) {
       sessionStorage.setItem(BOOKS_DATA, JSON.stringify(SAMPLE_DATA));
+    }
+
+    if (!sessionStorage.getItem(CHANGES_DATA) || sessionStorage.getItem(CHANGES_DATA)?.length === 0) {
+      sessionStorage.setItem(CHANGES_DATA, JSON.stringify(SAMPLE_CHANGES));
     }
   }
 
@@ -107,7 +113,7 @@ export class BooksService {
   private editBooks(change: any) {
     let data = this.getBooksData();
     if (change.event === "edit") {
-      data = data.map(x => x.id === change.recordId ? {...x, [change.field]: change.newVal} : x);
+      data = data.map(x => x.id === change.recordId ? { ...x, [change.field]: change.newVal } : x);
     } else {
       data = data.filter(x => x.id !== change.recordId);
     }
