@@ -8,6 +8,7 @@
         <ng-template ngFor let-data [ngForOf]="dataSource 
          | filteringPipe:filteringField:filteringCriteria
          | sortingPipe:sortingField:sortingCriteria
+         | transformDataPipe:pipeTrigger
          | groupingPipe:grouping:groupingField:groupingCriteria:pipeTrigger
          | pagingPipe:paging:selectedPage:2:pipeTrigger" let-idx="index">
             <ng-content
@@ -25,8 +26,8 @@
         </select>
     </div>
 </ng-container>
-<ng-template #dataRow let-context>
-    <tr>
+<ng-template #dataRow let-serviceData let-context>
+    <tr [ngClass]="{'grouped': serviceData.serviceData.grouped === true}">
         <td *ngFor="let key of context.data | keysPipe">
             {{ context.data[key] | stringBeautificationPipe:key }}
         </td>

@@ -75,9 +75,9 @@ export class PagingPipe implements PipeTransform {
     }
 }
 
-@Pipe({ name: 'groupingPipe', pure: false })
-export class GroupingPipe implements PipeTransform {
-    transform(data: any, grouping: boolean, field: any, criteria: any, pipeTrigger: number): any {
+@Pipe({ name: 'transformDataPipe' })
+export class TransformDataPipe implements PipeTransform {
+    transform(data: any, pipeTrigger: number): any {
         if (data === undefined || data.length === 0) {
             return data;
         }
@@ -89,13 +89,25 @@ export class GroupingPipe implements PipeTransform {
             };
         });
 
-        var newServiceData = serviceData.filter((x: any) => x.data[field].includes(criteria));
-        if (newServiceData.length > 0) {
-            newServiceData.unshift({ type: 'groupRow', field: field, data: criteria});
-        } 
-        newServiceData.push(...serviceData.filter((x: any) => !x.data[field].includes(criteria)));
+        return serviceData;
+    }
 
-        return newServiceData;
+}
+
+@Pipe({ name: 'groupingPipe' })
+export class GroupingPipe implements PipeTransform {
+    transform(data: any, grouping: boolean, field: any, criteria: any, pipeTrigger: number): any {
+        if (!grouping || data === undefined || data.length === 0) {
+            return data;
+        }
+
+        var serviceData = data.filter((x: any) => x.data[field].includes(criteria)).map((x: any) => { return { grouped: true, ...x } });
+        if (serviceData.length > 0) {
+            serviceData.unshift({ type: 'groupRow', field: field, data: criteria });
+        }
+        serviceData.push(...data.filter((x: any) => !x.data[field].includes(criteria)));
+
+        return serviceData;
     }
 
 }

@@ -8,7 +8,7 @@ import { ViewBooksComponent } from './view-books/view-books.component';
 import { EditBookComponent } from './edit-book/edit-book.component';
 import { ViewChangesComponent } from './view-changes/view-changes.component';
 import { CustomTableComponent } from './custom-table/custom-table.component';
-import { FilteringPipe, GroupingPipe, KeysPipe, PagingPipe, SortingPipe, StringBeautificationPipe } from './pipes';
+import { FilteringPipe, GroupingPipe, KeysPipe, PagingPipe, SortingPipe, StringBeautificationPipe, TransformDataPipe } from './pipes';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
@@ -23,7 +23,8 @@ import { FormsModule } from '@angular/forms';
     FilteringPipe,
     SortingPipe,
     PagingPipe,
-    GroupingPipe
+    GroupingPipe,
+    TransformDataPipe
   ],
   imports: [
     BrowserModule,
