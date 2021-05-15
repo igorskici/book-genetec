@@ -1,5 +1,4 @@
 import { Pipe, PipeTransform } from "@angular/core";
-import { TableService } from "./services/table.service";
 
 @Pipe({ name: 'keysPipe' })
 export class KeysPipe implements PipeTransform {

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 const BOOKS_DATA = 'booksData';
 const CHANGES_DATA = 'booksDataChangeLog';
