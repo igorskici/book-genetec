@@ -1,6 +1,7 @@
 import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
+import { TableService } from '../services/table.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -10,8 +11,17 @@ import { DialogComponent } from '../dialog/dialog.component';
 })
 export class CustomTableComponent implements OnInit, AfterViewInit {
 
+  private _dataSource: any[] = [];
+
   @Input()
-  public dataSource: any[] = [];
+  public get dataSource(): any[] {
+    return this._dataSource;
+  }
+  
+  public set dataSource(data: any[]) {
+    this._dataSource = data || [];
+    this.cdr.markForCheck();
+  }
 
   @Input()
   public paging: boolean = false;
@@ -28,6 +38,8 @@ export class CustomTableComponent implements OnInit, AfterViewInit {
   @ViewChild('paginator')
   public paginator: ElementRef;
 
+  public tableService: TableService;
+
   public pages: number[] = [];
 
   public filteringField: any;
@@ -39,9 +51,9 @@ export class CustomTableComponent implements OnInit, AfterViewInit {
   // todo: criteria not being applied
   public sortingCriteria: any = 'desc';
 
-  public groupingField: any = 'authors';
+  public groupingField: any = 'actions';
 
-  public groupingCriteria: any = 'John Roman';
+  public groupingCriteria: any = 'edit';
 
   public pipeTrigger = 0;
 
@@ -55,6 +67,7 @@ export class CustomTableComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.dialog?.afterAllClosed.subscribe(() => {
       this.cdr.detectChanges();
+      this.pipeTrigger++;
     });
   }
 

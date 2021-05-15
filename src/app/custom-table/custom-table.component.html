@@ -44,8 +44,8 @@
     </thead>
     <tbody>
         <ng-template ngFor let-data [ngForOf]="dataSource 
-         | filteringPipe:filteringField:filteringCriteria
-         | sortingPipe:sortingField:sortingCriteria
+         | filteringPipe:filteringField:filteringCriteria:pipeTrigger
+         | sortingPipe:sortingField:sortingCriteria:pipeTrigger
          | transformDataPipe:pipeTrigger
          | groupingPipe:grouping:groupingField:groupingCriteria:pipeTrigger
          | pagingPipe:paging:selectedPage:2:pipeTrigger" let-idx="index">

@@ -71,7 +71,7 @@ export class DialogComponent implements OnInit {
       });
       this.booksService.alter(this.data.recordId, dirtyValues);
     }
-
+    
     this.cdr.detectChanges();
     this.dialogRef.close();
   }

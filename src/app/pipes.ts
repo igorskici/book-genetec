@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from "@angular/core";
+import { TableService } from "./services/table.service";
 
 @Pipe({ name: 'keysPipe' })
 export class KeysPipe implements PipeTransform {
@@ -18,7 +19,7 @@ export class StringBeautificationPipe implements PipeTransform {
                 return authors.length === 1 ? authors[0] : authors.join(', ');
             case 'timestamp':
             case 'publishDate':
-                if (typeof(value) === 'string') {
+                if (typeof (value) === 'string') {
                     value = new Date(value);
                 }
                 return value.getMonth() + '/' + value.getDay() + '/' + value.getFullYear();
@@ -30,7 +31,7 @@ export class StringBeautificationPipe implements PipeTransform {
 
 @Pipe({ name: 'filteringPipe' })
 export class FilteringPipe implements PipeTransform {
-    transform(data: any, field: any, criteria: any): any {
+    transform(data: any, field: any, criteria: any, pipeTrigger: number): any {
         if (data === undefined || data.length === 0) {
             return data;
         }
@@ -43,7 +44,7 @@ export class FilteringPipe implements PipeTransform {
 
 @Pipe({ name: 'sortingPipe' })
 export class SortingPipe implements PipeTransform {
-    transform(data: any, field: any, criteria: any): any {
+    transform(data: any, field: any, criteria: any, pipeTrigger: number): any {
         if (data === undefined || data.length === 0) {
             return data;
         }
@@ -70,6 +71,7 @@ export class PagingPipe implements PipeTransform {
     // constructor(tableService: TableService) {
     // Todo: determine page size here and pass it back to component
     // }
+
     transform(data: any, paging: boolean, selectedPage: any, perPage = 2, pipeTrigger: number): any {
         if (!paging || data === undefined || data.length === 0) {
             return data;
@@ -105,11 +107,11 @@ export class GroupingPipe implements PipeTransform {
             return data;
         }
 
-        var serviceData = data.filter((x: any) => x.data[field].includes(criteria)).map((x: any) => { return { grouped: true, ...x } });
+        var serviceData = data.filter((x: any) => x.data[field]?.includes(criteria)).map((x: any) => { return { grouped: true, ...x } });
         if (serviceData.length > 0) {
             serviceData.unshift({ type: 'groupRow', field: field, data: criteria });
         }
-        serviceData.push(...data.filter((x: any) => !x.data[field].includes(criteria)));
+        serviceData.push(...data.filter((x: any) => !x.data[field]?.includes(criteria)));
 
         return serviceData;
     }
