@@ -70,6 +70,7 @@ export class CustomTableComponent implements AfterViewInit {
   public edit(recordId: number) {
     this.dialog.open(DialogComponent, {
       width: '300px',
+      height: '500px',
       data: { recordId, action: 'edit' }
     });
   }

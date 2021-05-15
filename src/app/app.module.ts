@@ -9,13 +9,14 @@ import { EditBookComponent } from './edit-book/edit-book.component';
 import { ViewChangesComponent } from './view-changes/view-changes.component';
 import { CustomTableComponent } from './custom-table/custom-table.component';
 import { FilteringPipe, GroupingPipe, KeysPipe, PagingPipe, SortingPipe, StringBeautificationPipe, TransformDataPipe } from './pipes';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogComponent } from './dialog/dialog.component';
-
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,7 +41,10 @@ import { DialogComponent } from './dialog/dialog.component';
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

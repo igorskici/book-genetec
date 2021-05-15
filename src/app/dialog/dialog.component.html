@@ -1,11 +1,30 @@
 <div mat-dialog-content>
-  <p>{{ data | json }}</p>
-  <!-- <mat-form-field>
-    <mat-label>Favorite Animal</mat-label>
-    <input matInput [(ngModel)]="data.animal">
-  </mat-form-field> -->
+    <ng-content *ngTemplateOutlet="data.action === 'edit' ? editBody : deleteBody"></ng-content>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button (click)="onConfirm()" cdkFocusInitial>Ok</button>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button (click)="onConfirm()" cdkFocusInitial>Confirm</button>
 </div>
+<ng-template #editBody>
+    <form [formGroup]="record" (ngSubmit)="onConfirm()">
+        <mat-form-field appearance="outline">
+            <mat-label>Authors</mat-label>
+            <input matInput formControlName="authors">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Title</mat-label>
+            <input matInput formControlName="title">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Description</mat-label>
+            <input matInput formControlName="description">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Published</mat-label>
+            <input matInput type="date" formControlName="publishDate">
+        </mat-form-field>
+    </form>
+</ng-template>
+<ng-template #deleteBody>
+    <h3>You are about to delete the record with id {{ data.recordId }}.</h3>
+</ng-template>
