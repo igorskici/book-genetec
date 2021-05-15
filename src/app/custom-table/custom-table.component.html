@@ -8,12 +8,11 @@
         <ng-template ngFor let-data [ngForOf]="dataSource 
          | filteringPipe:filteringField:filteringCriteria
          | sortingPipe:sortingField:sortingCriteria
+         | groupingPipe:grouping:groupingField:groupingCriteria:pipeTrigger
          | pagingPipe:paging:selectedPage:2:pipeTrigger" let-idx="index">
-         <tr>
-             <td *ngFor="let key of data | keysPipe">
-                    {{ data[key] | stringBeautificationPipe:key }}
-                </td>
-            </tr>
+            <ng-content
+                *ngTemplateOutlet="data.type === 'dataRow' ? dataRow : groupRow; context: { $implicit: { serviceData: data, data: data.data }}">
+            </ng-content>
         </ng-template>
     </tbody>
 </table>
@@ -26,3 +25,17 @@
         </select>
     </div>
 </ng-container>
+<ng-template #dataRow let-context>
+    <tr>
+        <td *ngFor="let key of context.data | keysPipe">
+            {{ context.data[key] | stringBeautificationPipe:key }}
+        </td>
+    </tr>
+</ng-template>
+<ng-template #groupRow let-serviceData let-context>
+    <tr>
+        <td colspan="5" class="group-row">
+            {{ serviceData.serviceData.field}}: {{ serviceData.serviceData.data }}
+        </td>
+    </tr>
+</ng-template>

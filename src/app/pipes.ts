@@ -53,8 +53,8 @@ export class SortingPipe implements PipeTransform {
                 return data.sort((x: any, y: any) => y[field] - x[field]);
             case 'object':
                 // assuming it's a date
-                return data.sort((x: any, y: any) => { 
-                    return y[field].getTime() - x[field].getTime(); 
+                return data.sort((x: any, y: any) => {
+                    return y[field].getTime() - x[field].getTime();
                 });
         }
         return data;
@@ -64,13 +64,38 @@ export class SortingPipe implements PipeTransform {
 @Pipe({ name: 'pagingPipe', pure: false })
 export class PagingPipe implements PipeTransform {
     // constructor(tableService: TableService) {
-        // Todo: determine page size here and pass it back to component
+    // Todo: determine page size here and pass it back to component
     // }
     transform(data: any, paging: boolean, selectedPage: any, perPage = 2, pipeTrigger: number): any {
         if (!paging || data === undefined || data.length === 0) {
             return data;
         }
-        
+
         return data.slice(selectedPage * perPage - perPage, selectedPage * perPage);
     }
+}
+
+@Pipe({ name: 'groupingPipe', pure: false })
+export class GroupingPipe implements PipeTransform {
+    transform(data: any, grouping: boolean, field: any, criteria: any, pipeTrigger: number): any {
+        if (data === undefined || data.length === 0) {
+            return data;
+        }
+
+        const serviceData = data.map((x: any) => {
+            return {
+                type: 'dataRow',
+                data: x
+            };
+        });
+
+        var newServiceData = serviceData.filter((x: any) => x.data[field].includes(criteria));
+        if (newServiceData.length > 0) {
+            newServiceData.unshift({ type: 'groupRow', field: field, data: criteria});
+        } 
+        newServiceData.push(...serviceData.filter((x: any) => !x.data[field].includes(criteria)));
+
+        return newServiceData;
+    }
+
 }

@@ -13,10 +13,13 @@ export class CustomTableComponent implements AfterViewInit {
   @Input()
   public paging: boolean = false;
 
+  @Input()
+  public grouping: boolean = false;
+
   @ViewChild('table')
   public table: ElementRef;
 
-  @ViewChild('table')
+  @ViewChild('paginator]')
   public paginator: ElementRef;
 
   public pages: number[] = [];
@@ -29,6 +32,10 @@ export class CustomTableComponent implements AfterViewInit {
 
   // todo: criteria not being applied
   public sortingCriteria: any = 'desc';
+
+  public groupingField: any = 'authors';
+
+  public groupingCriteria: any = 'John Roman';
 
   public pipeTrigger = 0;
 
