@@ -53,7 +53,7 @@ export interface BookEntity {
 export class BooksService {
 
   private _booksData: any[] = [];
-  private _changesData: [] = [];
+  private _changesData: any[] = [];
 
   constructor() {
     if (!sessionStorage.getItem(BOOKS_DATA) || sessionStorage.getItem(BOOKS_DATA)?.length === 0) {
@@ -75,8 +75,37 @@ export class BooksService {
   }
 
   public getChanges(): any[] {
-    const data = sessionStorage.getItem(CHANGES_DATA);
-    return !!data ? JSON.parse(data) : [];
+    const sessionStorageChanges = sessionStorage.getItem(CHANGES_DATA);
+    this._changesData = !!sessionStorageChanges ? JSON.parse(sessionStorageChanges) : []
+    return this._changesData;
+  }
+
+  public alter(recordId: number, changes: any[]) {
+    const newChanges: any[] = [];
+    if (this._changesData.length === 0) {
+      this._changesData = this.getChanges();
+    }
+    if (changes.length === 0) {
+      return;
+    }
+    changes.forEach((change: any) => {
+      const oldValue = this._booksData.filter(x => x.id === recordId)[0][change.field];
+      this.editBooks(change);
+      newChanges.push({...change, oldVal: oldValue});
+    });
+    this.editChanges(newChanges);
+  }
+
+  private editBooks(change: any) {
+    let data = this.getBooksData();
+    data = data.map(x => x.id === change.recordId ? {...x, [change.field]: change.newVal} : x);
+    sessionStorage[BOOKS_DATA] = JSON.stringify(data);
+  }
+
+  private editChanges(newChanges: any) {
+    let data = this.getChanges();
+    data.push(...newChanges);
+    sessionStorage[CHANGES_DATA] = JSON.stringify(data);
   }
 
 }

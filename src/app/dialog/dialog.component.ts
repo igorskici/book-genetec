@@ -42,8 +42,6 @@ export class DialogComponent implements OnInit {
   onConfirm(e: any): void {
     e.preventDefault();
 
-    const dirtyValues = [];
-
     if (e.submitter === undefined) {
       this.dialogRef.close();
       return;
@@ -55,12 +53,17 @@ export class DialogComponent implements OnInit {
     }
 
     if (!this.record.untouched) {
+      const dirtyValues: any[] = [];
+
       Object.keys(this.record.controls).forEach(x => {
         if (this.record.controls[x].dirty) {
           dirtyValues.push({ recordId: this.data.recordId, field: x, newVal: this.record.controls[x].value });
         }
       });
+      this.booksService.alter(this.data.recordId, dirtyValues);
     }
+
+    this.dialogRef.close();
   }
 
 }
