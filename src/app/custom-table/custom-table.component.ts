@@ -24,9 +24,6 @@ export class CustomTableComponent implements OnInit, AfterViewInit {
   }
 
   @Input()
-  public paging: boolean = false;
-
-  @Input()
   public grouping: boolean = false;
 
   @Input()
@@ -42,9 +39,25 @@ export class CustomTableComponent implements OnInit, AfterViewInit {
 
   public pages: number[] = [];
 
+  private _perPage: number = 5;
+
   private _filteringField: any;
 
   private _filteringCriteria: any;
+
+  private _paging: boolean = false;
+  
+  @Input()
+  public get paging(): boolean {
+    return this._paging;
+  }
+
+  public set paging(val: boolean) {
+    this._paging = val;
+    for (var i = 1; i <= Math.round(this.dataSource.length / 5); i++) {
+      this.pages.push(i);
+    }
+  }
 
   public sortingField: any = 'id';
 
@@ -73,7 +86,7 @@ export class CustomTableComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     if (this.paging) {
-      for (var i = 1; i <= Math.round(this.dataSource.length / 2); i++) {
+      for (var i = 1; i <= Math.round(this.dataSource.length / 5); i++) {
         this.pages.push(i);
       }
     }
@@ -117,6 +130,14 @@ export class CustomTableComponent implements OnInit, AfterViewInit {
 
   public set filteringCriteria(value: any) {
     this._filteringCriteria = value;
+  }
+
+  public get perPage() {
+    return this._perPage;
+  }
+
+  public set perPage(value: any) {
+    this._perPage = value;
   }
 
 }

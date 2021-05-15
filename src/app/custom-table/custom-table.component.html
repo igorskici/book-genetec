@@ -4,7 +4,7 @@
 </table>
 <ng-container *ngIf="paging">
     <div #paginator class="paginator">
-        <span>Paging is statically set to 2 elements per page. </span>
+        <span>5 items per page</span><br>
         <label for="paginator">Go to page </label>
         <select id="paginator" style="margin-left: 10px" [(ngModel)]="selectedPage">
             <option *ngFor="let val of pages" [ngValue]="val">{{ val }}</option>
@@ -28,7 +28,7 @@
 </ng-template>
 <ng-template #groupRow let-serviceData let-context>
     <tr>
-        <td colspan="5" class="group-row">
+        <td colspan="6" class="group-row">
             {{ serviceData.serviceData.field}}: {{ serviceData.serviceData.data }}
         </td>
     </tr>
@@ -48,7 +48,7 @@
          | sortingPipe:sortingField:sortingCriteria:pipeTrigger
          | transformDataPipe:pipeTrigger
          | groupingPipe:grouping:groupingField:groupingCriteria:pipeTrigger
-         | pagingPipe:paging:selectedPage:2:pipeTrigger" let-idx="index">
+         | pagingPipe:paging:selectedPage:5:pipeTrigger" let-idx="index">
             <ng-content
                 *ngTemplateOutlet="data.type === 'dataRow' ? dataRow : groupRow; context: { $implicit: { serviceData: data, data: data.data }}">
             </ng-content>
