@@ -12,8 +12,8 @@ This app uses `sessionStorage` to persist information about the books.
 
 ## Interaction
 The first page that would show up is the screen where the changes would appear. It corresponds with _All Changes_. For convenience, a couple of mock changes are seeded when the app starts.   
-Some data operations can be triggered. From the first page, one can toggle the switch buttons, enabling Filtering, Sorting, Grouping and Paging. By enabling a given data operation, an additional container with options is being shown.   
-The second page is _All Books_. It displays information about all the books. From there, one can either change and delete entities.
+From the first page, one can toggle the switch buttons, enabling Filtering, Sorting, Grouping and Paging. By enabling a given data operation, an additional container with options is being shown.   
+The second page is _All Books_. It displays information about all the books. From there, one can change and delete entities.
 
 ## Light docs
 To accomplish the data operations, a custom implementation of a table was used, namely `<custom-table>`. The datasource of the custom table would be taken through several pipes to eventually fulfil the data manipulations.   
