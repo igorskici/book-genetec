@@ -6,10 +6,8 @@ name: Release CI
 on:
   push:
     branches: [ master ]
-  tags:
-    - 0.*
-    - 1.*
-    - 2.*
+  release:
+    types: [created]
 
 jobs:
   build:
