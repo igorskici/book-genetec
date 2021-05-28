@@ -25,12 +25,15 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm run lint
 
-
-    - name: Deploy to github pages
-      env:
-        GH_TOKEN: ${{ secrets.GH_TOKEN }}
-      run: npm run deploy
+    # - name: Deploy to github pages
+    #  env:
+    #    GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+    #  run: npm run deploy
+      
+    - name: Angular Deploy gh-pages Actions
+      # uses: AhsanAyaz/angular-deploy-gh-pages-actions@0e4f1a953d00116ca38fbf1bcdb37f91923015ef
+      uses: AhsanAyaz/angular-deploy-gh-pages-actions@v1.3.2
+      with:
+        # Github access token token used to deploy on gh_pages. You can find it on Github.
+        github_access_token: ${{ secrets.GH_TOKEN }}
