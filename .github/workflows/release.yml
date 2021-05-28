@@ -6,10 +6,8 @@ name: Release CI
 on:
   push:
     branches: [ master ]
-  tags:
-    - 0.*
-    - 1.*
-    - 2.*
+  release:
+    types: [created]
 
 jobs:
   build:
@@ -33,6 +31,6 @@ jobs:
 
 
     - name: Deploy to github pages
-    - run: npm run deploy
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+      run: npm run deploy
