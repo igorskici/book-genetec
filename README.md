@@ -1,5 +1,7 @@
 # Books Archive
 
+[![Build CI](https://github.com/3phase/books-archive/actions/workflows/build.yml/badge.svg)](https://github.com/3phase/books-archive/actions/workflows/build.yml)
+
 ## Overview
 This app intends to keep a track on books and show what changes have occurred. To view the objective, go to the Objective section below.   
 It is generated using the Angular CLI v12 and therefore uses Angular 12. Some components from the Angular Material library are used as well.   
