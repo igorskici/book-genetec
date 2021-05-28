@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "deploy": "ng deploy --no-silent --base-href=/books-archive/"
+    "deploy": "ng deploy --no-silent --base-href=/books-archive/ --name='3phase' --email=pepo1229@yahoo.com"
   },
   "private": true,
   "dependencies": {
