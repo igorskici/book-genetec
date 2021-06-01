@@ -1,6 +1,7 @@
 # Books Archive
 
 [![Build CI](https://github.com/3phase/books-archive/actions/workflows/build.yml/badge.svg)](https://github.com/3phase/books-archive/actions/workflows/build.yml)
+[![Release CI](https://github.com/3phase/books-archive/actions/workflows/release.yml/badge.svg)](https://github.com/3phase/books-archive/actions/workflows/release.yml)
 
 ## Overview
 This app intends to keep a track on books and show what changes have occurred. To view the objective, go to the Objective section below.   
