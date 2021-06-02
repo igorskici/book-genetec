@@ -39,4 +39,4 @@ jobs:
         github_access_token: ${{ secrets.GH_TOKEN }}
         angular_project_dir: "./"
         build_configuration: "production"
-        angular_dist_build_folder: "dist"
+        angular_dist_build_folder: "dist/app"
